@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShop.Console2019", "CompulsoryCrashCourse2019\PetShop.Console2019.csproj", "{CE1077A0-E785-4BC4-87A6-6F85DF06F223}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShop.Console2019", "CompulsoryCrashCourse2019\PetShop.Console2019.csproj", "{CE1077A0-E785-4BC4-87A6-6F85DF06F223}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{61C1950B-FC2B-4BDE-AB93-DCA75B483976}"
 EndProject
@@ -11,11 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{A11F3DC4-D47C-434B-B4BD-A93D6A302757}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShop.Core.Entity", "PetShop.Core.Entity\PetShop.Core.Entity.csproj", "{0D6F0214-35A1-4ECC-A81D-47AA33A852C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShop.Core.Entity", "PetShop.Core.Entity\PetShop.Core.Entity.csproj", "{0D6F0214-35A1-4ECC-A81D-47AA33A852C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShop.Core", "PetShop.Core\PetShop.Core.csproj", "{B09C5837-9F0E-455D-A5D8-7121281990FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShop.Core", "PetShop.Core\PetShop.Core.csproj", "{B09C5837-9F0E-455D-A5D8-7121281990FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShop.Infrastructure.Data", "PetShop.Infrastructure.Data\PetShop.Infrastructure.Data.csproj", "{D59ADD6A-50B9-49FB-B11F-EF076F3D5350}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShop.Infrastructure.Data", "PetShop.Infrastructure.Data\PetShop.Infrastructure.Data.csproj", "{D59ADD6A-50B9-49FB-B11F-EF076F3D5350}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShopApp.UI.RestAPI", "PetShopApp.UI.RestAPI\PetShopApp.UI.RestAPI.csproj", "{F5916179-166A-4F53-92E3-371E44CB39AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{D59ADD6A-50B9-49FB-B11F-EF076F3D5350}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D59ADD6A-50B9-49FB-B11F-EF076F3D5350}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D59ADD6A-50B9-49FB-B11F-EF076F3D5350}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5916179-166A-4F53-92E3-371E44CB39AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5916179-166A-4F53-92E3-371E44CB39AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5916179-166A-4F53-92E3-371E44CB39AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5916179-166A-4F53-92E3-371E44CB39AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 		{0D6F0214-35A1-4ECC-A81D-47AA33A852C2} = {A11F3DC4-D47C-434B-B4BD-A93D6A302757}
 		{B09C5837-9F0E-455D-A5D8-7121281990FB} = {A11F3DC4-D47C-434B-B4BD-A93D6A302757}
 		{D59ADD6A-50B9-49FB-B11F-EF076F3D5350} = {DC59B06E-12C6-4F79-A74A-8AF9007C213F}
+		{F5916179-166A-4F53-92E3-371E44CB39AE} = {61C1950B-FC2B-4BDE-AB93-DCA75B483976}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EAFDE453-2ECC-464E-A4F0-4EB51C292824}

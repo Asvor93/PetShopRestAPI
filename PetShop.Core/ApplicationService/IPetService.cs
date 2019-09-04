@@ -24,7 +24,7 @@ namespace PetShop.Core.ApplicationService
         /// <param name="previousOwner"></param>
         /// <param name="price"></param>
         /// <returns></returns>
-        Pet AddPet(string name, string petType, DateTime birthDate, DateTime soldDate, string color, Owner previousOwner, double price);
+        Pet AddPet(Pet petToAdd);
 
         Pet FindPetById(int id);
 

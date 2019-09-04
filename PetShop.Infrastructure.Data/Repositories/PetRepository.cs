@@ -22,22 +22,7 @@ namespace PetShop.Infrastructure.Data.Repositories
 
         public Pet UpdatePet(Pet pet)
         {
-            var petFromDb = GetSinglePetById(pet.Id);
-
-            if (petFromDb != null)
-            {
-                petFromDb.Name = pet.Name;
-                petFromDb.PetType = pet.PetType;
-                petFromDb.BirthDate = pet.BirthDate;
-                petFromDb.SoldDate = pet.SoldDate;
-                petFromDb.Color = pet.Color;
-                petFromDb.PreviousOwner = pet.PreviousOwner;
-                petFromDb.Price = pet.Price;
-
-                return pet;
-            }
-
-            return null;
+            return pet;
         }
 
         public Pet DeletePet(int id)

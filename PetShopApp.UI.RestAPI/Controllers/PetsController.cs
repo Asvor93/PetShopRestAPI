@@ -28,11 +28,38 @@ namespace PetShopApp.UI.RestAPI.Controllers
             return _petService.GetPets();
         }
 
+        // GET api/pets/5
+        [HttpGet("{id}")]
+        public ActionResult<Pet> Get(int id)
+        {
+            return _petService.FindPetById(id);
+        }
+
         //POST api/pets
         [HttpPost]
-        public void Post([FromBody] string name, string type, DateTime birthDate, DateTime soldDate, string color, Owner prevOwner, double price)
+        public ActionResult<Pet> Post([FromBody] Pet pet)
         {
-            _petService.AddPet(name, type, birthDate, soldDate, color, prevOwner, price);
+           return _petService.AddPet(pet);
+        }
+
+        //DELETE api/pets
+        [HttpDelete]
+        public ActionResult<Pet> Delete([FromBody] Pet petToDelete)
+        {
+            
+            return Ok($"Pet with the id {petToDelete.Id} has been deleted");
+        }
+
+        //PUT api/pets
+        [HttpPut("{id}")]
+        public ActionResult<Pet> Put(int id, [FromBody] Pet pet)
+        {
+            if (id < 1 || id != pet.Id)
+            {
+                return BadRequest("Parameter Id and customer ID must be the same");
+            }
+
+            return Ok(_petService.Update(pet));
         }
     }
 }

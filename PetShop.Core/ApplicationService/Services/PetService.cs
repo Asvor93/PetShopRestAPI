@@ -21,18 +21,17 @@ namespace PetShop.Core.ApplicationService.Services
             return this._petRepository.ReadPets().ToList();
         }
 
-        public Pet AddPet(string name, string petType, DateTime birthDate, DateTime soldDate, string color, Owner previousOwner,
-            double price)
+        public Pet AddPet(Pet petToAdd)
         {
             Pet pet = new Pet
             {
-                Name = name,
-                PetType = petType,
-                BirthDate = birthDate,
-                SoldDate = soldDate,
-                Color = color,
-                PreviousOwner = previousOwner,
-                Price = price
+                Name = petToAdd.Name,
+                PetType = petToAdd.PetType,
+                BirthDate = petToAdd.BirthDate,
+                SoldDate = petToAdd.SoldDate,
+                Color = petToAdd.Color,
+                PreviousOwner = petToAdd.PreviousOwner,
+                Price = petToAdd.Price
             };
             return _petRepository.CreatePet(pet);
         }
@@ -55,7 +54,22 @@ namespace PetShop.Core.ApplicationService.Services
 
         public Pet Update(Pet petToUpdate)
         {
-            return _petRepository.UpdatePet(petToUpdate);
+            var pet = FindPetById(petToUpdate.Id);
+
+            if (pet != null)
+            {
+                pet.Name = petToUpdate.Name;
+                pet.PetType = petToUpdate.PetType;
+                pet.BirthDate = petToUpdate.BirthDate;
+                pet.SoldDate = petToUpdate.SoldDate;
+                pet.Color = petToUpdate.Color;
+                pet.PreviousOwner = petToUpdate.PreviousOwner;
+                pet.Price = petToUpdate.Price;
+
+                return pet;
+            }
+
+            return null;
         }
 
         public List<Pet> OrderByPrice()

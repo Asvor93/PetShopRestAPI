@@ -22,11 +22,24 @@ namespace PetShop.Core.ApplicationService.Services
 
         public List<Pet> GetPets()
         {
-            return this._petRepository.ReadPets().ToList();
+            if (_petRepository.ReadPets() != null)
+            {
+                return this._petRepository.ReadPets().ToList();
+            }
+
+            return null;
         }
 
         public Pet AddPet(Pet petToAdd)
         {
+            if (_validateId.ValidateId(petToAdd.Id))
+            {
+                throw new InvalidDataException("Do not enter id!");
+            }
+            if (string.IsNullOrEmpty(petToAdd.Name))
+            {
+                throw new InvalidDataException("You have to add a name to the pet");
+            }
             Pet pet = new Pet
             {
                 Name = petToAdd.Name,
@@ -42,7 +55,7 @@ namespace PetShop.Core.ApplicationService.Services
 
         public Pet FindPetById(int id)
         {
-            if (!_validateId.ValidateId(id))
+            if (_petRepository.ReadPets().FirstOrDefault(pet => pet.Id != id) != null)
             {
                 throw new InvalidDataException("Invalid id!");
             }
@@ -56,12 +69,21 @@ namespace PetShop.Core.ApplicationService.Services
 
         public Pet Delete(Pet petToDelete)
         {
-            return _petRepository.DeletePet(petToDelete.Id);
+            if (petToDelete != null)
+            {
+                return _petRepository.DeletePet(petToDelete.Id);
+            }
+            throw new InvalidDataException($"The pet you are trying to delete does not exist!");
         }
 
         public Pet Update(Pet petToUpdate)
         {
             var pet = FindPetById(petToUpdate.Id);
+
+            if (string.IsNullOrEmpty(petToUpdate.Name))
+            {
+                throw new InvalidDataException("You have to add a name to the owner");
+            }
 
             if (pet != null)
             {

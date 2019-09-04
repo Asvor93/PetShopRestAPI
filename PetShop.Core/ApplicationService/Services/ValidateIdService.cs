@@ -4,7 +4,7 @@
     {
         public bool ValidateId(int id)
         {
-            if (id < 0)
+            if (id <= 0)
             {
                 return false;
             }

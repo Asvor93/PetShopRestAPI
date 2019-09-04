@@ -11,23 +11,22 @@ namespace PetShopApp.UI.RestAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PetsController : ControllerBase
+    public class OwnersController : ControllerBase
     {
-        private IPetService _petService;
+        private IOwnerService _ownerService;
 
-        public PetsController(IPetService petService)
+        public OwnersController(IOwnerService ownerService)
         {
-            _petService = petService;
-
+            _ownerService = ownerService;
         }
 
-        // GET api/pets
+        // GET api/owners/1
         [HttpGet]
-        public ActionResult<IEnumerable<Pet>> Get()
+        public ActionResult<IEnumerable<Owner>> Get()
         {
             try
             {
-                return Ok(_petService.GetPets());
+                return Ok(_ownerService.ReadOwners());
             }
             catch (Exception e)
             {
@@ -35,13 +34,13 @@ namespace PetShopApp.UI.RestAPI.Controllers
             }
         }
 
-        // GET api/pets/5
+        //GET api/owner
         [HttpGet("{id}")]
-        public ActionResult<Pet> Get(int id)
+        public ActionResult<Owner> Get(int id)
         {
             try
             {
-                return Ok(_petService.FindPetById(id));
+                return Ok(_ownerService.FindOwnerById(id));
             }
             catch (Exception e)
             {
@@ -49,13 +48,13 @@ namespace PetShopApp.UI.RestAPI.Controllers
             }
         }
 
-        //POST api/pets
+        //Post api/owners
         [HttpPost]
-        public ActionResult<Pet> Post([FromBody] Pet pet)
+        public ActionResult<Owner> Post([FromBody]Owner owner)
         {
             try
             {
-                return Ok(_petService.AddPet(pet));
+                return Ok(_ownerService.AddOwner(owner));
             }
             catch (Exception e)
             {
@@ -63,13 +62,13 @@ namespace PetShopApp.UI.RestAPI.Controllers
             }
         }
 
-        //DELETE api/pets
+        //DELETE api/owners
         [HttpDelete]
-        public ActionResult<Pet> Delete([FromBody] Pet petToDelete)
+        public ActionResult<Owner> Delete([FromBody]Owner owner)
         {
             try
             {
-                return Ok(_petService.Delete(petToDelete));
+                return Ok(_ownerService.RemoveOwner(owner));
             }
             catch (Exception e)
             {
@@ -77,24 +76,22 @@ namespace PetShopApp.UI.RestAPI.Controllers
             }
         }
 
-        //PUT api/pets
+        //PUT api/owners
         [HttpPut("{id}")]
-        public ActionResult<Pet> Put(int id, [FromBody] Pet pet)
+        public ActionResult<Owner> Put(int id, [FromBody] Owner ownerToUpdate)
         {
             try
             {
-                if (id < 1 || id != pet.Id)
+                if (id < 1 || id != ownerToUpdate.Id)
                 {
                     return BadRequest("Parameter Id and customer ID must be the same");
                 }
-
-                return Ok(_petService.Update(pet));
+                return Ok(_ownerService.UpdateOwner(ownerToUpdate));
             }
             catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
-            
         }
     }
 }

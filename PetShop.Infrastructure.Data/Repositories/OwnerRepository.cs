@@ -10,7 +10,7 @@ namespace PetShop.Infrastructure.Data.Repositories
 
         public Owner CreateOwner(Owner owner)
         {
-            owner.Id = FakeDb.OwnerId;
+            owner.Id = FakeDb.OwnerId++;
             FakeDb.Owners.Add(owner);
             return owner;
         }
@@ -22,20 +22,7 @@ namespace PetShop.Infrastructure.Data.Repositories
 
         public Owner UpdateOwner(Owner ownerToUpdate)
         {
-            var ownerFromDb = GetOwnerById(ownerToUpdate.Id);
-
-            if (ownerFromDb != null)
-            {
-                ownerFromDb.FirstName = ownerToUpdate.FirstName;
-                ownerFromDb.LastName = ownerToUpdate.LastName;
-                ownerFromDb.Address = ownerToUpdate.Address;
-                ownerFromDb.PhoneNumber = ownerToUpdate.PhoneNumber;
-                ownerFromDb.Email = ownerToUpdate.Email;
-
-                return ownerToUpdate;
-            }
-
-            return null;
+            return ownerToUpdate;
         }
 
         public Owner DeleteOwner(int id)

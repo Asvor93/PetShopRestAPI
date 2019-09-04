@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using PetShop.Core.DomainService;
 using PetShop.Core.Entity;
@@ -10,10 +11,13 @@ namespace PetShop.Core.ApplicationService.Services
     public class PetService: IPetService
     {
         private readonly IPetRepository _petRepository;
+        private IValidateIdService _validateId;
 
-        public PetService(IPetRepository petRepository)
+        public PetService(IPetRepository petRepository, IValidateIdService validateIdService)
         {
             this._petRepository = petRepository;
+            _validateId = validateIdService;
+
         }
 
         public List<Pet> GetPets()
@@ -38,7 +42,10 @@ namespace PetShop.Core.ApplicationService.Services
 
         public Pet FindPetById(int id)
         {
-
+            if (!_validateId.ValidateId(id))
+            {
+                throw new InvalidDataException("Invalid id!");
+            }
             return _petRepository.ReadPets().FirstOrDefault(pet => pet.Id == id);
         }
 
@@ -85,11 +92,6 @@ namespace PetShop.Core.ApplicationService.Services
             }
 
             return sortBy;
-        }
-
-        public bool ValidateId(int inputId, int petId)
-        {
-            return _petRepository.ValidateId(inputId, petId);
         }
     }
 }

@@ -30,8 +30,11 @@ namespace PetShopApp.UI.RestAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IOwnerService, OwnerService>();
+            services.AddScoped<IOwnerRepository, OwnerRepository>();
             services.AddScoped<IPetRepository, PetRepository>();
             services.AddScoped<IPetService, PetService>();
+            services.AddScoped<IValidateIdService, ValidateIdService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

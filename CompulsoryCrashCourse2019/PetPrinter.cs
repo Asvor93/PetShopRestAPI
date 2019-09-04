@@ -296,7 +296,7 @@ namespace PetShop.Console2019
         {
             Console.WriteLine("Printing all owners!\n");
 
-            foreach (var owner in oService.ReaOwners())
+            foreach (var owner in oService.ReadOwners())
             {
                 Console.WriteLine($"Id : {owner.Id}, Firstname: {owner.FirstName}, Lastname: {owner.LastName}, Address: {owner.Address}, " +
                                   $"Phone number: {owner.PhoneNumber}, Email: {owner.Email}");

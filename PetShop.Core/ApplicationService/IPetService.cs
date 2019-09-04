@@ -13,17 +13,6 @@ namespace PetShop.Core.ApplicationService
         /// <returns></returns>
         List<Pet> GetPets();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="petType"></param>
-        /// <param name="birthDate"></param>
-        /// <param name="soldDate"></param>
-        /// <param name="color"></param>
-        /// <param name="previousOwner"></param>
-        /// <param name="price"></param>
-        /// <returns></returns>
         Pet AddPet(Pet petToAdd);
 
         Pet FindPetById(int id);
@@ -35,8 +24,5 @@ namespace PetShop.Core.ApplicationService
         Pet Update(Pet petToUpdate);
 
         List<Pet> OrderByPrice();
-
-        bool ValidateId(int inputId, int petId);
-
     }
 }

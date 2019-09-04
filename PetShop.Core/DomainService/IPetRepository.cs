@@ -17,7 +17,5 @@ namespace PetShop.Core.DomainService
 
         Pet GetSinglePetByName(string petName);
 
-        bool ValidateId(int inputId, int petId);
-
     }
 }

@@ -6,9 +6,9 @@ namespace PetShop.Core.ApplicationService
 {
     public interface IOwnerService
     {
-        Owner AddOwner(string firstName, string lastName, string address, string phoneNr, string email);
+        Owner AddOwner(Owner ownerToAdd);
 
-        List<Owner> ReaOwners();
+        List<Owner> ReadOwners();
 
         Owner UpdateOwner(Owner ownerToUpdate);
 

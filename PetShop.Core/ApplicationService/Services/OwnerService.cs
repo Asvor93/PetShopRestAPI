@@ -14,27 +14,40 @@ namespace PetShop.Core.ApplicationService.Services
 
         }
 
-        public Owner AddOwner(string firstName, string lastName, string address, string phoneNr, string email)
+        public Owner AddOwner(Owner ownerToAdd)
         {
             Owner newOwner = new Owner
             {
-                FirstName = firstName,
-                LastName = lastName,
-                Address = address,
-                PhoneNumber = phoneNr,
-                Email = email
+                FirstName = ownerToAdd.FirstName,
+                LastName = ownerToAdd.LastName,
+                Address = ownerToAdd.Address,
+                PhoneNumber = ownerToAdd.PhoneNumber,
+                Email = ownerToAdd.Email
             };
             return _ownerRepository.CreateOwner(newOwner);
         }
 
-        public List<Owner> ReaOwners()
+        public List<Owner> ReadOwners()
         {
             return _ownerRepository.ReadAllOwners().ToList();
         }
 
         public Owner UpdateOwner(Owner ownerToUpdate)
         {
-            return _ownerRepository.UpdateOwner(ownerToUpdate);
+            var owner = FindOwnerById(ownerToUpdate.Id);
+
+            if (owner != null)
+            {
+                owner.FirstName = ownerToUpdate.FirstName;
+                owner.LastName = ownerToUpdate.LastName;
+                owner.Address = ownerToUpdate.Address;
+                owner.PhoneNumber = ownerToUpdate.PhoneNumber;
+                owner.Email = ownerToUpdate.Email;
+
+                return owner;
+            }
+
+            return null;
         }
 
         public Owner RemoveOwner(Owner ownerToDelete)

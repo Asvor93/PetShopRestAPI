@@ -17,7 +17,22 @@ namespace PetShop.Infrastructure.Data.Repositories
 
         public IEnumerable<Pet> ReadPets()
         {
-            return FakeDb.Pets;
+            List<Pet> petsNoOwner = new List<Pet>();
+            foreach (var pet in FakeDb.Pets)
+            {
+                petsNoOwner.Add(new Pet()
+                {
+                    BirthDate = pet.BirthDate,
+                    Color = pet.Color,
+                    Id = pet.Id,
+                    Name = pet.Name,
+                    PetType = pet.PetType,
+                    Price = pet.Price,
+                    SoldDate = pet.SoldDate,
+                    PreviousOwner = pet.PreviousOwner != null ? new Owner { Id = pet.PreviousOwner.Id}: null
+                });
+            }
+            return petsNoOwner;
         }
 
         public Pet UpdatePet(Pet pet)
@@ -54,15 +69,6 @@ namespace PetShop.Infrastructure.Data.Repositories
                 }
             }
             return null;
-        }
-
-        public bool ValidateId(int inputId, int petId)
-        {
-            if (inputId == FakeDb.PetId)
-            {
-                return true;
-            }
-            return false;
         }
     }
 }

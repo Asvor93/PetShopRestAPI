@@ -11,12 +11,14 @@ namespace PetShop.Core.ApplicationService.Services
     public class PetService: IPetService
     {
         private readonly IPetRepository _petRepository;
-        private IValidateIdService _validateId;
+        private readonly IValidateIdService _validateId;
+        private readonly IOwnerRepository _ownerRepository;
 
-        public PetService(IPetRepository petRepository, IValidateIdService validateIdService)
+        public PetService(IPetRepository petRepository, IValidateIdService validateIdService, IOwnerRepository ownerRepository)
         {
             this._petRepository = petRepository;
             _validateId = validateIdService;
+            _ownerRepository = ownerRepository;
 
         }
 
@@ -40,17 +42,21 @@ namespace PetShop.Core.ApplicationService.Services
             {
                 throw new InvalidDataException("You have to add a name to the pet");
             }
-            Pet pet = new Pet
+
+            if (petToAdd.PreviousOwner == null || petToAdd.PreviousOwner.Id <= 0)
             {
-                Name = petToAdd.Name,
-                PetType = petToAdd.PetType,
-                BirthDate = petToAdd.BirthDate,
-                SoldDate = petToAdd.SoldDate,
-                Color = petToAdd.Color,
-                PreviousOwner = petToAdd.PreviousOwner,
-                Price = petToAdd.Price
-            };
-            return _petRepository.CreatePet(pet);
+                {
+                    throw new InvalidDataException("To create a pet you need an owner!");
+                }
+            }
+            if (_ownerRepository.GetOwnerById(petToAdd.PreviousOwner.Id) == null)
+            {
+                {
+                    throw new InvalidDataException("Owner not found!");
+                }
+            }
+
+            return _petRepository.CreatePet(petToAdd);
         }
 
         public Pet FindPetById(int id)

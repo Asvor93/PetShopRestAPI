@@ -34,14 +34,16 @@ namespace PetShop.Infrastructure.Data.Repositories
 
         public Owner GetOwnerById(int id)
         {
-            foreach (var owner in FakeDb.Owners)
+            return FakeDb.Owners.Select(o => new Owner()
             {
-                if (owner.Id == FakeDb.PetId)
-                {
-                    return owner;
-                }
-            }
-            return null;
+                Id = o.Id,
+                FirstName = o.FirstName,
+                LastName = o.LastName,
+                Address = o.Address,
+                Email = o.Email,
+                PhoneNumber = o.PhoneNumber
+            }).FirstOrDefault(o => o.Id == id);
+
         }
     }
 }

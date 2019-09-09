@@ -40,7 +40,7 @@ namespace PetShopApp.UI.RestAPI.Controllers
         {
             try
             {
-                return Ok(_ownerService.FindOwnerById(id));
+                return Ok(_ownerService.FindOwnerByIdWithPets(id));
             }
             catch (Exception e)
             {

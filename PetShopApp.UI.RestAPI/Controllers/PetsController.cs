@@ -64,11 +64,12 @@ namespace PetShopApp.UI.RestAPI.Controllers
         }
 
         //DELETE api/pets
-        [HttpDelete]
-        public ActionResult<Pet> Delete([FromBody] Pet petToDelete)
+        [HttpDelete("{id}")]
+        public ActionResult<Pet> Delete(int id)
         {
             try
             {
+                var petToDelete = _petService.FindPetById(id);
                 return Ok(_petService.Delete(petToDelete));
             }
             catch (Exception e)

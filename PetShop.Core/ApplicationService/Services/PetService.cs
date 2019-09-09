@@ -55,7 +55,7 @@ namespace PetShop.Core.ApplicationService.Services
 
         public Pet FindPetById(int id)
         {
-            if (_petRepository.ReadPets().FirstOrDefault(pet => pet.Id != id) != null)
+            if (_petRepository.ReadPets().FirstOrDefault(pet => pet.Id != id) == null)
             {
                 throw new InvalidDataException("Invalid id!");
             }

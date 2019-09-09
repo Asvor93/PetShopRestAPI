@@ -68,7 +68,7 @@ namespace PetShop.Infrastructure.Data
                 BirthDate = new DateTime(2000, 11, 3),
                 SoldDate = new DateTime(2001, 2, 5),
                 Color = "Black",
-                PreviousOwner = owner1,
+                PreviousOwner = new Owner{Id = 1},
                 Price = 10000
             };
             Pets.Add(pet1);
@@ -82,7 +82,7 @@ namespace PetShop.Infrastructure.Data
                 BirthDate = new DateTime(2012, 5, 30),
                 SoldDate = new DateTime(2018, 10, 13),
                 Color = "Black",
-                PreviousOwner = owner1,
+                PreviousOwner = new Owner { Id = 1 },
                 Price = 15300
             };
             Pets.Add(pet2);
@@ -95,7 +95,7 @@ namespace PetShop.Infrastructure.Data
                 BirthDate = new DateTime(2012, 5, 30),
                 SoldDate = new DateTime(2018, 10, 13),
                 Color = "Brown",
-                PreviousOwner = owner2,
+                PreviousOwner = new Owner { Id = 2 },
                 Price = 30000
             };
             Pets.Add(pet3);
@@ -108,7 +108,7 @@ namespace PetShop.Infrastructure.Data
                 BirthDate = new DateTime(2012, 5, 30),
                 SoldDate = new DateTime(2018, 10, 13),
                 Color = "White",
-                PreviousOwner = owner4,
+                PreviousOwner = new Owner { Id = 4 },
                 Price = 100000
             };
             Pets.Add(pet4);
@@ -121,7 +121,7 @@ namespace PetShop.Infrastructure.Data
                 BirthDate = new DateTime(2018, 5, 30),
                 SoldDate = new DateTime(2018, 10, 13),
                 Color = "Black and white",
-                PreviousOwner = owner3,
+                PreviousOwner = new Owner { Id = 3 },
                 Price = 6000
             };
             Pets.Add(pet5);
@@ -134,7 +134,7 @@ namespace PetShop.Infrastructure.Data
                 BirthDate = new DateTime(2012, 5, 30),
                 SoldDate = new DateTime(2018, 10, 13),
                 Color = "orange",
-                PreviousOwner = owner2,
+                PreviousOwner = new Owner { Id = 2 },
                 Price = 2000
             };
             Pets.Add(pet6);
@@ -147,7 +147,7 @@ namespace PetShop.Infrastructure.Data
                 BirthDate = new DateTime(2012, 5, 30),
                 SoldDate = new DateTime(2018, 10, 13),
                 Color = "White",
-                PreviousOwner = owner4,
+                PreviousOwner = new Owner { Id = 4 },
                 Price = 20500
             };
             Pets.Add(pet7);

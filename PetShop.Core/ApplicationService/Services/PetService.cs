@@ -86,11 +86,6 @@ namespace PetShop.Core.ApplicationService.Services
         {
             var pet = FindPetById(petToUpdate.Id);
 
-            if (string.IsNullOrEmpty(petToUpdate.Name))
-            {
-                throw new InvalidDataException("You have to add a name to the owner");
-            }
-
             if (pet != null)
             {
                 pet.Name = petToUpdate.Name;
@@ -101,7 +96,7 @@ namespace PetShop.Core.ApplicationService.Services
                 pet.PreviousOwner = petToUpdate.PreviousOwner;
                 pet.Price = petToUpdate.Price;
 
-                return pet;
+                return _petRepository.UpdatePet(petToUpdate);
             }
 
             return null;

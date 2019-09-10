@@ -63,12 +63,13 @@ namespace PetShopApp.UI.RestAPI.Controllers
         }
 
         //DELETE api/owners
-        [HttpDelete]
-        public ActionResult<Owner> Delete([FromBody]Owner owner)
+        [HttpDelete ("{id}")]
+        public ActionResult<Owner> Delete(int id)
         {
             try
             {
-                return Ok(_ownerService.RemoveOwner(owner));
+                var ownerToDelete = _ownerService.FindOwnerById(id);
+                return Ok(_ownerService.RemoveOwner(ownerToDelete));
             }
             catch (Exception e)
             {

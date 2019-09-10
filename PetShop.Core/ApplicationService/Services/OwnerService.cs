@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using PetShop.Core.DomainService;
 using PetShop.Core.Entity;
@@ -46,7 +47,7 @@ namespace PetShop.Core.ApplicationService.Services
                 owner.PhoneNumber = ownerToUpdate.PhoneNumber;
                 owner.Email = ownerToUpdate.Email;
 
-                return owner;
+                return _ownerRepository.UpdateOwner(ownerToUpdate);
             }
 
             return null;
@@ -54,7 +55,11 @@ namespace PetShop.Core.ApplicationService.Services
 
         public Owner RemoveOwner(Owner ownerToDelete)
         {
-            return _ownerRepository.DeleteOwner(ownerToDelete.Id);
+            if (ownerToDelete != null)
+            {
+                return _ownerRepository.DeleteOwner(ownerToDelete.Id);
+            }
+            throw new InvalidDataException($"The owner you are trying to delete does not exist!");
         }
 
         public Owner FindOwnerById(int id)

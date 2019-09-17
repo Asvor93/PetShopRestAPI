@@ -46,5 +46,6 @@ namespace PetShop.Core.ApplicationService
         /// <param name="id"></param>
         /// <returns></returns>
         Owner FindOwnerByIdWithPets(int id);
+
     }
 }

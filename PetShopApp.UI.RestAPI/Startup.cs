@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using PetShop.Core.ApplicationService;
 using PetShop.Core.ApplicationService.Services;
 using PetShop.Core.DomainService;
@@ -49,7 +50,12 @@ namespace PetShopApp.UI.RestAPI
                 services.AddDbContext<PetShopContext>(opt =>
                     opt.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
             }
-            
+
+            services.AddMvc().AddJsonOptions(opt =>
+            {
+                opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                opt.SerializerSettings.MaxDepth = 2;
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

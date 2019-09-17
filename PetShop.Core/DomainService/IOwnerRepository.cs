@@ -39,5 +39,12 @@ namespace PetShop.Core.DomainService
         /// <returns></returns>
         Owner GetOwnerById(int id);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Owner FindOwnerByIdWithPets(int id);
+
     }
 }

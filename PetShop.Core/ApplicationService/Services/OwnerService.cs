@@ -60,9 +60,9 @@ namespace PetShop.Core.ApplicationService.Services
 
         public Owner FindOwnerByIdWithPets(int id)
         {
-            var owner = FindOwnerById(id);
-            owner.Pets = _petRepository.ReadPets().Where(pet => pet.PreviousOwner.Id == owner.Id).ToList();
-            return owner;
+            //var owner = FindOwnerById(id);
+            return _ownerRepository.FindOwnerByIdWithPets(id);
+
         }
     }
 }

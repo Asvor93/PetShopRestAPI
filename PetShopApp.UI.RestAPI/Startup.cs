@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -13,28 +14,43 @@ using Microsoft.Extensions.Options;
 using PetShop.Core.ApplicationService;
 using PetShop.Core.ApplicationService.Services;
 using PetShop.Core.DomainService;
-using PetShop.Infrastructure.Data;
-using PetShop.Infrastructure.Data.Repositories;
+using PetShop.Infrastructure.SQL;
+using PetShop.Infrastructure.SQL.Repositories;
 
 namespace PetShopApp.UI.RestAPI
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+            Environment = env;
         }
 
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IOwnerService, OwnerService>();
-            services.AddScoped<IOwnerRepository, OwnerRepository>();
+            services.AddScoped<IOwnerRepository, PetShopOwnerRepository>();
             services.AddScoped<IPetRepository, PetRepository>();
             services.AddScoped<IPetService, PetService>();
             services.AddScoped<IValidateIdService, ValidateIdService>();
+
+            if (Environment.IsDevelopment())
+            {
+                services.AddDbContext<PetShopContext>(optionsAction: opt =>
+                    opt.UseSqlite( "Data Source = PetShop.db"));
+            }
+            else
+            {
+                services.AddDbContext<PetShopContext>(opt =>
+                    opt.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
+            }
+            
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -43,8 +59,14 @@ namespace PetShopApp.UI.RestAPI
         {
             if (env.IsDevelopment())
             {
-                FakeDb.InitData();
+                //FakeDb.InitData();
                 app.UseDeveloperExceptionPage();
+
+                using (var scope = app.ApplicationServices.CreateScope())
+                {
+                    var context = scope.ServiceProvider.GetService<PetShopContext>();
+                    DbInitializer.SeedDb(context);
+                }
             }
             else
             {

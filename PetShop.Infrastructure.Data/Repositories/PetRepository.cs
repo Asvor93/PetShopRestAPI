@@ -35,9 +35,24 @@ namespace PetShop.Infrastructure.Data.Repositories
             return petsNoOwner;
         }
 
-        public Pet UpdatePet(Pet pet)
+        public Pet UpdatePet(Pet petToUpdate)
         {
-            return pet;
+            var pet = GetSinglePetById(petToUpdate.Id);
+
+            if (pet != null)
+            {
+                pet.Name = petToUpdate.Name;
+                pet.PetType = petToUpdate.PetType;
+                pet.BirthDate = petToUpdate.BirthDate;
+                pet.SoldDate = petToUpdate.SoldDate;
+                pet.Color = petToUpdate.Color;
+                pet.PreviousOwner = petToUpdate.PreviousOwner;
+                pet.Price = petToUpdate.Price;
+
+                return pet;
+            }
+
+            return null;
         }
 
         public Pet DeletePet(int id)
@@ -49,14 +64,7 @@ namespace PetShop.Infrastructure.Data.Repositories
 
         public Pet GetSinglePetById(int id)
         {
-            foreach (var pet in FakeDb.Pets)
-            {
-                if (pet.Id == FakeDb.PetId)
-                {
-                    return pet;
-                }
-            }
-            return null;
+            return FakeDb.Pets.FirstOrDefault(pet => pet.Id == id);
         }
 
         public Pet GetSinglePetByName(string petName)

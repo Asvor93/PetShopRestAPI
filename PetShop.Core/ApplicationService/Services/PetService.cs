@@ -16,7 +16,7 @@ namespace PetShop.Core.ApplicationService.Services
 
         public PetService(IPetRepository petRepository, IValidateIdService validateIdService, IOwnerRepository ownerRepository)
         {
-            this._petRepository = petRepository;
+            _petRepository = petRepository;
             _validateId = validateIdService;
             _ownerRepository = ownerRepository;
 
@@ -61,11 +61,18 @@ namespace PetShop.Core.ApplicationService.Services
 
         public Pet FindPetById(int id)
         {
-            if (_petRepository.ReadPets().FirstOrDefault(pet => pet.Id != id) == null)
+            var petToGet = _petRepository.GetSinglePetById(id);
+
+            if (petToGet == null)
+            {
+                throw new InvalidDataException("The pet does not exist!");
+            }
+
+            if (id != petToGet.Id)
             {
                 throw new InvalidDataException("Invalid id!");
             }
-            return _petRepository.ReadPets().FirstOrDefault(pet => pet.Id == id);
+            return petToGet;
         }
 
         public Pet FindPetByName(string petName)
@@ -84,22 +91,11 @@ namespace PetShop.Core.ApplicationService.Services
 
         public Pet Update(Pet petToUpdate)
         {
-            var pet = FindPetById(petToUpdate.Id);
-
-            if (pet != null)
+            if (petToUpdate == null)
             {
-                pet.Name = petToUpdate.Name;
-                pet.PetType = petToUpdate.PetType;
-                pet.BirthDate = petToUpdate.BirthDate;
-                pet.SoldDate = petToUpdate.SoldDate;
-                pet.Color = petToUpdate.Color;
-                pet.PreviousOwner = petToUpdate.PreviousOwner;
-                pet.Price = petToUpdate.Price;
-
-                return _petRepository.UpdatePet(petToUpdate);
+                throw new InvalidDataException("The pet does not exist!");
             }
-
-            return null;
+            return _petRepository.UpdatePet(petToUpdate);
         }
 
         public List<Pet> OrderByPrice()

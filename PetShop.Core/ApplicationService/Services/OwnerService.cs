@@ -13,7 +13,7 @@ namespace PetShop.Core.ApplicationService.Services
 
         public OwnerService(IOwnerRepository ownerRepository, IPetRepository petRepository)
         {
-            this._ownerRepository = ownerRepository;
+           _ownerRepository = ownerRepository;
             _petRepository = petRepository;
         }
 
@@ -37,20 +37,11 @@ namespace PetShop.Core.ApplicationService.Services
 
         public Owner UpdateOwner(Owner ownerToUpdate)
         {
-            var owner = FindOwnerById(ownerToUpdate.Id);
-
-            if (owner != null)
+            if (ownerToUpdate == null)
             {
-                owner.FirstName = ownerToUpdate.FirstName;
-                owner.LastName = ownerToUpdate.LastName;
-                owner.Address = ownerToUpdate.Address;
-                owner.PhoneNumber = ownerToUpdate.PhoneNumber;
-                owner.Email = ownerToUpdate.Email;
-
-                return _ownerRepository.UpdateOwner(ownerToUpdate);
+                throw new InvalidDataException("The owner does not exist!");
             }
-
-            return null;
+            return _ownerRepository.UpdateOwner(ownerToUpdate);
         }
 
         public Owner RemoveOwner(Owner ownerToDelete)
@@ -64,12 +55,12 @@ namespace PetShop.Core.ApplicationService.Services
 
         public Owner FindOwnerById(int id)
         {
-            return _ownerRepository.ReadAllOwners().FirstOrDefault(owner => owner.Id == id);
+            return _ownerRepository.GetOwnerById(id);
         }
 
         public Owner FindOwnerByIdWithPets(int id)
         {
-            var owner = _ownerRepository.GetOwnerById(id);
+            var owner = FindOwnerById(id);
             owner.Pets = _petRepository.ReadPets().Where(pet => pet.PreviousOwner.Id == owner.Id).ToList();
             return owner;
         }

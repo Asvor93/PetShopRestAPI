@@ -22,7 +22,20 @@ namespace PetShop.Infrastructure.Data.Repositories
 
         public Owner UpdateOwner(Owner ownerToUpdate)
         {
-            return ownerToUpdate;
+            var owner = GetOwnerById(ownerToUpdate.Id);
+
+            if (owner != null)
+            {
+                owner.FirstName = ownerToUpdate.FirstName;
+                owner.LastName = ownerToUpdate.LastName;
+                owner.Address = ownerToUpdate.Address;
+                owner.PhoneNumber = ownerToUpdate.PhoneNumber;
+                owner.Email = ownerToUpdate.Email;
+
+                return owner;
+            }
+
+            return null;
         }
 
         public Owner DeleteOwner(int id)

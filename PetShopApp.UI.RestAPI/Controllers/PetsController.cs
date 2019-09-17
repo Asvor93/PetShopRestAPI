@@ -35,7 +35,7 @@ namespace PetShopApp.UI.RestAPI.Controllers
             }
         }
 
-        // GET api/pets/5
+        // GET api/pets/id
         [HttpGet("{id}")]
         public ActionResult<Pet> Get(int id)
         {

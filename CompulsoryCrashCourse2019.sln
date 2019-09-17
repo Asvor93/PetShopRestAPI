@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShop.Core", "PetShop.Cor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShop.Infrastructure.Data", "PetShop.Infrastructure.Data\PetShop.Infrastructure.Data.csproj", "{D59ADD6A-50B9-49FB-B11F-EF076F3D5350}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShopApp.UI.RestAPI", "PetShopApp.UI.RestAPI\PetShopApp.UI.RestAPI.csproj", "{F5916179-166A-4F53-92E3-371E44CB39AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShopApp.UI.RestAPI", "PetShopApp.UI.RestAPI\PetShopApp.UI.RestAPI.csproj", "{F5916179-166A-4F53-92E3-371E44CB39AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShop.Infrastructure.SQL", "PetShop.Infrastructure.SQL\PetShop.Infrastructure.SQL.csproj", "{3DD06BB3-4F70-465C-A920-7389D660497E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{F5916179-166A-4F53-92E3-371E44CB39AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5916179-166A-4F53-92E3-371E44CB39AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5916179-166A-4F53-92E3-371E44CB39AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DD06BB3-4F70-465C-A920-7389D660497E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DD06BB3-4F70-465C-A920-7389D660497E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DD06BB3-4F70-465C-A920-7389D660497E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DD06BB3-4F70-465C-A920-7389D660497E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +61,7 @@ Global
 		{B09C5837-9F0E-455D-A5D8-7121281990FB} = {A11F3DC4-D47C-434B-B4BD-A93D6A302757}
 		{D59ADD6A-50B9-49FB-B11F-EF076F3D5350} = {DC59B06E-12C6-4F79-A74A-8AF9007C213F}
 		{F5916179-166A-4F53-92E3-371E44CB39AE} = {61C1950B-FC2B-4BDE-AB93-DCA75B483976}
+		{3DD06BB3-4F70-465C-A920-7389D660497E} = {DC59B06E-12C6-4F79-A74A-8AF9007C213F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EAFDE453-2ECC-464E-A4F0-4EB51C292824}

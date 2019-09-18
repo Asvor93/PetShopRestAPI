@@ -46,5 +46,12 @@ namespace PetShop.Core.DomainService
         /// <returns></returns>
         Pet GetSinglePetByName(string petName);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Pet GetPetByIdWithOwners(int id);
+
     }
 }

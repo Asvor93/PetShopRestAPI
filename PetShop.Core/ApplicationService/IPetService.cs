@@ -53,5 +53,12 @@ namespace PetShop.Core.ApplicationService
         /// </summary>
         /// <returns></returns>
         List<Pet> OrderByPrice();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Pet GetPetByIdWithOwners(int id);
     }
 }

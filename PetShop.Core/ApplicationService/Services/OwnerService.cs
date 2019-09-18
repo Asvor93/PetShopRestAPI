@@ -19,15 +19,8 @@ namespace PetShop.Core.ApplicationService.Services
 
         public Owner AddOwner(Owner ownerToAdd)
         {
-            Owner newOwner = new Owner
-            {
-                FirstName = ownerToAdd.FirstName,
-                LastName = ownerToAdd.LastName,
-                Address = ownerToAdd.Address,
-                PhoneNumber = ownerToAdd.PhoneNumber,
-                Email = ownerToAdd.Email
-            };
-            return _ownerRepository.CreateOwner(newOwner);
+            
+            return _ownerRepository.CreateOwner(ownerToAdd);
         }
 
         public List<Owner> ReadOwners()
@@ -60,7 +53,6 @@ namespace PetShop.Core.ApplicationService.Services
 
         public Owner FindOwnerByIdWithPets(int id)
         {
-            //var owner = FindOwnerById(id);
             return _ownerRepository.FindOwnerByIdWithPets(id);
 
         }

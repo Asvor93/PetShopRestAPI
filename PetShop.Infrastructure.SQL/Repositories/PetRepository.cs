@@ -43,6 +43,11 @@ namespace PetShop.Infrastructure.SQL.Repositories
             return _context.Pets.FirstOrDefault(p => p.Id == id);
         }
 
+        public Pet GetPetByIdWithOwners(int id)
+        {
+            return _context.Pets.Include(p => p.PreviousOwner).FirstOrDefault(p => p.Id == id);
+        }
+
         public Pet GetSinglePetByName(string petName)
         {
             return _context.Pets.FirstOrDefault(p => p.Name == petName);

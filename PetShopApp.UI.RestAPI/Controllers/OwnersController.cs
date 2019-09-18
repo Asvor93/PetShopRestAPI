@@ -68,8 +68,7 @@ namespace PetShopApp.UI.RestAPI.Controllers
         {
             try
             {
-                var ownerToDelete = _ownerService.FindOwnerById(id);
-                return Ok(_ownerService.RemoveOwner(ownerToDelete));
+                return Ok(_ownerService.RemoveOwner(id > 0 ? new Owner() { Id = id } : null));
             }
             catch (Exception e)
             {

@@ -112,5 +112,10 @@ namespace PetShop.Core.ApplicationService.Services
 
             return sortBy;
         }
+
+        public Pet GetPetByIdWithOwners(int id)
+        {
+            return _petRepository.GetPetByIdWithOwners(id);
+        }
     }
 }

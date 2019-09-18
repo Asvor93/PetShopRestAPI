@@ -43,7 +43,7 @@ namespace PetShop.Infrastructure.SQL
             {
                 Name = "Princess Bubblegum",
                 PetType = "cow",
-                PreviousOwner = owner1,
+                PreviousOwner = owner2,
                 BirthDate = new DateTime(2000, 5, 23),
                 SoldDate = new DateTime(2002, 9, 2),
                 Color = "blue",

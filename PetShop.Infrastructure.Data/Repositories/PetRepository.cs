@@ -6,7 +6,7 @@ using PetShop.Core.Entity;
 
 namespace PetShop.Infrastructure.Data.Repositories
 {
-    public class PetRepository: IPetRepository
+    public class PetRepository
     {
         public Pet CreatePet(Pet pet)
         {

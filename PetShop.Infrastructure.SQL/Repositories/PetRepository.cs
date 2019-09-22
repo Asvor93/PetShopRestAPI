@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using PetShop.Core.DomainService;
@@ -16,6 +17,15 @@ namespace PetShop.Infrastructure.SQL.Repositories
         }
         public Pet CreatePet(Pet pet)
         {
+            /*
+            if (pet.PreviousOwner != null && _context.ChangeTracker.Entries<Owner>().FirstOrDefault(pe => pe.Entity.Id == pet.PreviousOwner.Id) == null)
+            {
+                _context.Attach(pet.PreviousOwner);
+            }
+            
+            var saved = _context.Pets.Add(pet).Entity;
+            _context.SaveChanges();
+            return saved;*/
             _context.Attach(pet).State = EntityState.Added;
             _context.SaveChanges();
             return pet;
@@ -28,7 +38,10 @@ namespace PetShop.Infrastructure.SQL.Repositories
 
         public Pet UpdatePet(Pet pet)
         {
-            throw new System.NotImplementedException();
+            _context.Attach(pet).State = EntityState.Modified;
+            _context.Entry(pet).Reference(p => p.PreviousOwner).IsModified = true;
+            _context.SaveChanges();
+            return pet;
         }
 
         public Pet DeletePet(int id)

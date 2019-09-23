@@ -60,5 +60,7 @@ namespace PetShop.Core.ApplicationService
         /// <param name="id"></param>
         /// <returns></returns>
         Pet GetPetByIdWithOwners(int id);
+
+        List<Pet> GetFilteredPets(Filter filter);
     }
 }

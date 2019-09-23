@@ -102,13 +102,13 @@ namespace PetShop.Core.ApplicationService.Services
         {
             var sortBy = _petRepository.ReadPets().OrderBy(pets => pets.Price).ToList();
 
-            foreach (var pet in sortBy)
+            /*foreach (var pet in sortBy)
             {
                 Console.WriteLine($"The pets ordered by price: Id {pet.Id} name: {pet.Name} Type: {pet.PetType}, Birthday: {pet.BirthDate}, Color: {pet.Color}, " +
                                   $"Previous owner: {pet.PreviousOwner} Price: {pet.Price}, Sold date: {pet.SoldDate}\n");
 
 
-            }
+            }*/
 
             return sortBy;
         }
@@ -116,6 +116,25 @@ namespace PetShop.Core.ApplicationService.Services
         public Pet GetPetByIdWithOwners(int id)
         {
             return _petRepository.GetPetByIdWithOwners(id);
+        }
+
+        public List<Pet> GetFilteredPets(Filter filter)
+        {
+            if (filter.CurrentPage < 0 || filter.ItemsPrPage < 0)
+            {
+                throw new InvalidDataException("page and items must be 0 or more!");
+            }
+
+            if ((filter.CurrentPage - 1 * filter.ItemsPrPage) >= _petRepository.Count())
+            {
+                throw new InvalidDataException("No Items to show!");
+            }
+
+            if (filter.ItemsPrPage > _petRepository.Count())
+            {
+                throw new InvalidDataException("the items number is to  high!");
+            }
+            return _petRepository.ReadPets(filter).ToList();
         }
     }
 }

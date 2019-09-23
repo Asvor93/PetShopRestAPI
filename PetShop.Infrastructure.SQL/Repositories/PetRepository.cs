@@ -31,9 +31,15 @@ namespace PetShop.Infrastructure.SQL.Repositories
             return pet;
         }
 
-        public IEnumerable<Pet> ReadPets()
+        public IEnumerable<Pet> ReadPets(Filter filter)
         {
-            return _context.Pets.ToList();
+            if (filter == null)
+            {
+                return _context.Pets;
+            }
+
+            return _context.Pets.Skip((filter.CurrentPage - 1)
+                                      * filter.ItemsPrPage).Take(filter.ItemsPrPage);
         }
 
         public Pet UpdatePet(Pet pet)
@@ -59,6 +65,11 @@ namespace PetShop.Infrastructure.SQL.Repositories
         public Pet GetPetByIdWithOwners(int id)
         {
             return _context.Pets.Include(p => p.PreviousOwner).FirstOrDefault(p => p.Id == id);
+        }
+
+        public int Count()
+        {
+            return _context.Pets.Count();
         }
 
         public Pet GetSinglePetByName(string petName)

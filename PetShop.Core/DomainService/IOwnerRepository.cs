@@ -16,7 +16,7 @@ namespace PetShop.Core.DomainService
         /// 
         /// </summary>
         /// <returns></returns>
-        IEnumerable<Owner> ReadAllOwners();
+        IEnumerable<Owner> ReadAllOwners(Filter filter = null);
 
         /// <summary>
         /// 
@@ -45,6 +45,8 @@ namespace PetShop.Core.DomainService
         /// <param name="id"></param>
         /// <returns></returns>
         Owner FindOwnerByIdWithPets(int id);
+
+        int Count();
 
     }
 }

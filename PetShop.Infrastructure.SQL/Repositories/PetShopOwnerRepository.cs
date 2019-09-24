@@ -21,14 +21,22 @@ namespace PetShop.Infrastructure.SQL.Repositories
             return owner;
         }
 
-        public IEnumerable<Owner> ReadAllOwners()
+        public IEnumerable<Owner> ReadAllOwners(Filter filter)
         {
-            return _context.Owners.ToList();
+            if (filter.CurrentPage > 0 && filter.ItemsPrPage > 0)
+            {
+                return _context.Owners.Skip((filter.CurrentPage - 1)
+                                            * filter.ItemsPrPage).Take(filter.ItemsPrPage).OrderBy(o => o.FirstName);
+            }
+            return _context.Owners;
         }
 
         public Owner UpdateOwner(Owner ownerToUpdate)
         {
-            throw new System.NotImplementedException();
+            _context.Attach(ownerToUpdate).State = EntityState.Modified;
+            _context.Entry(ownerToUpdate).Collection(o => o.Pets).IsModified = true;
+            _context.SaveChanges();
+            return ownerToUpdate;
         }
 
         public Owner DeleteOwner(int id)
@@ -46,6 +54,11 @@ namespace PetShop.Infrastructure.SQL.Repositories
         public Owner FindOwnerByIdWithPets(int id)
         {
             return _context.Owners.Include(o => o.Pets).FirstOrDefault(o => o.Id == id);
+        }
+
+        public int Count()
+        {
+            return _context.Owners.Count();
         }
     }
 }

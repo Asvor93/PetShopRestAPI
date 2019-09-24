@@ -20,13 +20,13 @@ namespace PetShopApp.UI.RestAPI.Controllers
             _ownerService = ownerService;
         }
 
-        // GET api/owners/1
+        // GET api/owners
         [HttpGet]
-        public ActionResult<IEnumerable<Owner>> Get()
+        public ActionResult<IEnumerable<Owner>> Get([FromQuery] Filter filter)
         {
             try
             {
-                return Ok(_ownerService.ReadOwners());
+                return Ok(_ownerService.GetFilteredOwners(filter));
             }
             catch (Exception e)
             {
@@ -34,7 +34,7 @@ namespace PetShopApp.UI.RestAPI.Controllers
             }
         }
 
-        //GET api/owner
+        //GET api/owner/id
         [HttpGet("{id}")]
         public ActionResult<Owner> Get(int id)
         {

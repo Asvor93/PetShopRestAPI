@@ -56,5 +56,22 @@ namespace PetShop.Core.ApplicationService.Services
             return _ownerRepository.FindOwnerByIdWithPets(id);
 
         }
+
+        public List<Owner> GetFilteredOwners(Filter filter)
+        {
+            if (filter.CurrentPage < 0 || filter.ItemsPrPage < 0)
+            {
+                throw new InvalidDataException("page and items must be 0 or more!");
+            }
+            if ((filter.CurrentPage - 1 * filter.ItemsPrPage) >= _ownerRepository.Count())
+            {
+                throw new InvalidDataException("No Items to show!");
+            }
+            if (filter.ItemsPrPage > _ownerRepository.Count())
+            {
+                throw new InvalidDataException("the items number is to  high!");
+            }
+            return _ownerRepository.ReadAllOwners(filter).ToList();
+        }
     }
 }

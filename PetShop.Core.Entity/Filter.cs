@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace PetShop.Core.Entity
 {
@@ -6,5 +7,6 @@ namespace PetShop.Core.Entity
     {
         public int CurrentPage { get; set; }
         public int ItemsPrPage { get; set; }
+
     }
 }

@@ -26,7 +26,7 @@ namespace PetShop.Core.ApplicationService.Services
         {
             if (_petRepository.ReadPets() != null)
             {
-                return this._petRepository.ReadPets().ToList();
+                return _petRepository.ReadPets().ToList();
             }
 
             return null;

@@ -17,15 +17,6 @@ namespace PetShop.Infrastructure.SQL.Repositories
         }
         public Pet CreatePet(Pet pet)
         {
-            /*
-            if (pet.PreviousOwner != null && _context.ChangeTracker.Entries<Owner>().FirstOrDefault(pe => pe.Entity.Id == pet.PreviousOwner.Id) == null)
-            {
-                _context.Attach(pet.PreviousOwner);
-            }
-            
-            var saved = _context.Pets.Add(pet).Entity;
-            _context.SaveChanges();
-            return saved;*/
             _context.Attach(pet).State = EntityState.Added;
             _context.SaveChanges();
             return pet;
@@ -33,13 +24,13 @@ namespace PetShop.Infrastructure.SQL.Repositories
 
         public IEnumerable<Pet> ReadPets(Filter filter)
         {
-            if (filter == null)
+            if (filter.CurrentPage > 0 && filter.ItemsPrPage > 0)
             {
-                return _context.Pets;
+                return _context.Pets.Skip((filter.CurrentPage - 1)
+                                          * filter.ItemsPrPage).Take(filter.ItemsPrPage);
+                
             }
-
-            return _context.Pets.Skip((filter.CurrentPage - 1)
-                                      * filter.ItemsPrPage).Take(filter.ItemsPrPage);
+            return _context.Pets;
         }
 
         public Pet UpdatePet(Pet pet)

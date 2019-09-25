@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace PetShop.Core.Entity
 {
@@ -14,7 +15,7 @@ namespace PetShop.Core.Entity
 
         public DateTime SoldDate { get; set; }
 
-        public string Color { get; set; }
+        public List<PetColor> PetColors { get; set; }
 
         public Owner PreviousOwner { get; set; }
 

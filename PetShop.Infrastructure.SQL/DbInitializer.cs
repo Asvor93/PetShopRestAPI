@@ -35,7 +35,6 @@ namespace PetShop.Infrastructure.SQL
                 PreviousOwner = owner2,
                 BirthDate = new DateTime(2000, 5, 23),
                 SoldDate = new DateTime(2002, 9, 2),
-                Color = "Pink",
                 Price = 100
             }).Entity;
 
@@ -46,7 +45,6 @@ namespace PetShop.Infrastructure.SQL
                 PreviousOwner = owner2,
                 BirthDate = new DateTime(2000, 5, 23),
                 SoldDate = new DateTime(2002, 9, 2),
-                Color = "blue",
                 Price = 10000
             }).Entity;
 

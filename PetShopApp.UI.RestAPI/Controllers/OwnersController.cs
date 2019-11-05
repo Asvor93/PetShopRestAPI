@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PetShop.Core.ApplicationService;
-using PetShop.Core.DomainService.Filter;
 using PetShop.Core.Entity;
 
 namespace PetShopApp.UI.RestAPI.Controllers
@@ -25,46 +24,11 @@ namespace PetShopApp.UI.RestAPI.Controllers
         // GET api/owners
         [Authorize]
         [HttpGet]
-        public ActionResult<FilteredList<Owner>> Get([FromQuery] Filter filter)
+        public ActionResult<IEnumerable<Owner>> Get([FromQuery] Filter filter)
         {
             try
             {
-                if (filter.CurrentPage == 0 && filter.ItemsPrPage == 0)
-                {
-                    var list = _ownerService.GetFilteredOwners(null);
-                    var newList = new List<Owner>();
-                    foreach (var owner in list.List)
-                    {
-                        newList.Add(new Owner()
-                        {
-                            FirstName = owner.FirstName,
-                            LastName = owner.LastName
-                        });
-                    }
-
-                    var newFilteredList = new FilteredList<Owner>();
-                    newFilteredList.List = newList;
-                    newFilteredList.Count = list.Count;
-                    return Ok(newFilteredList);
-                }
-
-                var advancedFilteredList = _ownerService.GetFilteredOwners(filter);
-                var newOwnerList = new List<object>();
-
-                foreach (var owner in advancedFilteredList.List)
-                {
-                    newOwnerList.Add(new
-                    {
-                        owner.FirstName,
-                        owner.LastName
-                    });
-                }
-
-                return Ok(new FilteredList<object>
-                {
-                    Count = advancedFilteredList.Count,
-                    List = newOwnerList
-                });
+                return Ok(_ownerService.GetFilteredOwners(filter));
             }
             catch (Exception e)
             {

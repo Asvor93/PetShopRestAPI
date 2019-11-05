@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PetShop.Core.ApplicationService;
+using PetShop.Core.DomainService.Filter;
 using PetShop.Core.Entity;
 
 namespace PetShopApp.UI.RestAPI.Controllers
@@ -21,12 +23,48 @@ namespace PetShopApp.UI.RestAPI.Controllers
         }
 
         // GET api/owners
+        [Authorize]
         [HttpGet]
-        public ActionResult<IEnumerable<Owner>> Get([FromQuery] Filter filter)
+        public ActionResult<FilteredList<Owner>> Get([FromQuery] Filter filter)
         {
             try
             {
-                return Ok(_ownerService.GetFilteredOwners(filter));
+                if (filter.CurrentPage == 0 && filter.ItemsPrPage == 0)
+                {
+                    var list = _ownerService.GetFilteredOwners(null);
+                    var newList = new List<Owner>();
+                    foreach (var owner in list.List)
+                    {
+                        newList.Add(new Owner()
+                        {
+                            FirstName = owner.FirstName,
+                            LastName = owner.LastName
+                        });
+                    }
+
+                    var newFilteredList = new FilteredList<Owner>();
+                    newFilteredList.List = newList;
+                    newFilteredList.Count = list.Count;
+                    return Ok(newFilteredList);
+                }
+
+                var advancedFilteredList = _ownerService.GetFilteredOwners(filter);
+                var newOwnerList = new List<object>();
+
+                foreach (var owner in advancedFilteredList.List)
+                {
+                    newOwnerList.Add(new
+                    {
+                        owner.FirstName,
+                        owner.LastName
+                    });
+                }
+
+                return Ok(new FilteredList<object>
+                {
+                    Count = advancedFilteredList.Count,
+                    List = newOwnerList
+                });
             }
             catch (Exception e)
             {
@@ -34,7 +72,9 @@ namespace PetShopApp.UI.RestAPI.Controllers
             }
         }
 
+
         //GET api/owner/id
+        [Authorize(Roles = "Administrator")]
         [HttpGet("{id}")]
         public ActionResult<Owner> Get(int id)
         {
@@ -49,6 +89,7 @@ namespace PetShopApp.UI.RestAPI.Controllers
         }
 
         //Post api/owners
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public ActionResult<Owner> Post([FromBody]Owner owner)
         {
@@ -63,6 +104,7 @@ namespace PetShopApp.UI.RestAPI.Controllers
         }
 
         //DELETE api/owners
+        [Authorize(Roles = "Administrator")]
         [HttpDelete ("{id}")]
         public ActionResult<Owner> Delete(int id)
         {
@@ -77,6 +119,7 @@ namespace PetShopApp.UI.RestAPI.Controllers
         }
 
         //PUT api/owners
+        [Authorize(Roles = "Administrator")]
         [HttpPut("{id}")]
         public ActionResult<Owner> Put(int id, [FromBody] Owner ownerToUpdate)
         {

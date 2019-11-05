@@ -28,5 +28,6 @@ namespace PetShop.Infrastructure.SQL
         public DbSet<Color> Colors { get; set; }
 
         public DbSet<PetColor> PetColors { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

@@ -1,15 +1,44 @@
 ﻿using System;
+using PetShop.Core.DomainService;
 using PetShop.Core.Entity;
+using PetShop.Core.Helper;
 
 namespace PetShop.Infrastructure.SQL
 {
-    public class DbInitializer
+    public class DbInitializer: IDbInitializer
     {
-        public static void SeedDb(PetShopContext context)
+        private static IAuthenticationHelper authenticationHelper;
+
+        public DbInitializer(IAuthenticationHelper authHelper)
         {
-            context.Database.EnsureDeleted();
+            authenticationHelper = authHelper;
+        }
+
+        public void SeedDb(PetShopContext context)
+        {
             context.Database.EnsureCreated();
 
+            string password = "1234";
+            byte[] passwordHashJoe, passwordSaltJoe, passwordHashAnn, passwordSaltAnn;
+            authenticationHelper.CreatePasswordHash(password, out passwordHashJoe, out passwordSaltJoe);
+            authenticationHelper.CreatePasswordHash(password, out passwordHashAnn, out passwordSaltAnn);
+
+            var user = context.Users.Add(new User()
+            {
+                UserName = "user",
+                PasswordHash = passwordHashJoe,
+                PasswordSalt = passwordSaltJoe,
+                IsAdmin = false
+            });
+
+            var user1 = context.Users.Add(new User()
+            {
+                UserName = "admin",
+                PasswordHash = passwordHashAnn,
+                PasswordSalt = passwordSaltAnn,
+                IsAdmin = true
+            });
+            
             var owner1 = context.Owners.Add(new Owner()
             {
                 FirstName = "Lady",
@@ -46,7 +75,7 @@ namespace PetShop.Infrastructure.SQL
                 BirthDate = new DateTime(2000, 5, 23),
                 SoldDate = new DateTime(2002, 9, 2),
                 Price = 10000
-            }).Entity;
+            }).Entity; 
 
             context.SaveChanges();
         }
